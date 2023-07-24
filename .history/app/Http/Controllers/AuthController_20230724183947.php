@@ -42,8 +42,7 @@ class AuthController extends Controller
     public function login(){
         return view('auth.login');
     }
-    public function loginuser(Request $request)
-    {
+    public function loginuser(Request $request){
         // Validate the form data
         $request->validate([
             'email' => 'required|email',
@@ -58,13 +57,12 @@ class AuthController extends Controller
             // Generate a token and assign it to the authenticated user
             $token = $user->createToken('Personal Access Token')->accessToken;
             // Redirect the user to the desired location with the token
-            return redirect()->intended('/dashboard')->with('success', 'Login successful!')->header('Authorization', 'Bearer ' . $token);
-        } 
-        else {
+                return redirect()->intended('/dashboard')->with('success', 'Login successful!')->header('Authorization', 'Bearer ' . $token);
+            } else {
                 // Invalid credentials, redirect back with an error message
                 return redirect()->back()->withErrors(['email' => 'Invalid credentials'])->withInput($request->only('email'));
+            }
         }
-    }
         public function loginapi(Request $request)
         {
             $request->validate([

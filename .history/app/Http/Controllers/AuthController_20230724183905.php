@@ -42,29 +42,28 @@ class AuthController extends Controller
     public function login(){
         return view('auth.login');
     }
-    public function loginuser(Request $request)
-    {
+    public function loginuser(Request $request){
         // Validate the form data
         $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+                'email' => 'required|email',
+                'password' => 'required',
+            ]);
     
-        // Get the user by email
-        $user = User::where('email', $request->email)->first();
+            // Get the user by email
+            $user = User::where('email', $request->email)->first();
     
-        // Check if the user exists and the password matches
-        if ($user && Hash::check($request->password, $user->password)) {
-            // Generate a token and assign it to the authenticated user
-            $token = $user->createToken('Personal Access Token')->accessToken;
-            // Redirect the user to the desired location with the token
-            return redirect()->intended('/dashboard')->with('success', 'Login successful!')->header('Authorization', 'Bearer ' . $token);
-        } 
-        else {
+            // Check if the user exists and the password matches
+            if ($user && Hash::check($request->password, $user->password)) {
+                // Generate a token and assign it to the authenticated user
+                $token = $user->createToken('Personal Access Token')->accessToken;
+    
+                // Redirect the user to the desired location with the token
+                return redirect()->intended('/dashboard')->with('success', 'Login successful!')->header('Authorization', 'Bearer ' . $token);
+            } else {
                 // Invalid credentials, redirect back with an error message
                 return redirect()->back()->withErrors(['email' => 'Invalid credentials'])->withInput($request->only('email'));
+            }
         }
-    }
         public function loginapi(Request $request)
         {
             $request->validate([

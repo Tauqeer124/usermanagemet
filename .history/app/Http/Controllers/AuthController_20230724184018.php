@@ -42,8 +42,7 @@ class AuthController extends Controller
     public function login(){
         return view('auth.login');
     }
-    public function loginuser(Request $request)
-    {
+    public function loginuser(Request $request){
         // Validate the form data
         $request->validate([
             'email' => 'required|email',

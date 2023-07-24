@@ -19,6 +19,6 @@ class UserController extends Controller
         return view('users.show', compact('user'));
     }
     public function dashboard(){
-        return view('dashboard');
+        return view('dashboard')
     }
 }

@@ -42,8 +42,7 @@ class AuthController extends Controller
     public function login(){
         return view('auth.login');
     }
-    public function loginuser(Request $request)
-    {
+    public function loginuser(Request $request){
         // Validate the form data
         $request->validate([
             'email' => 'required|email',
@@ -64,7 +63,7 @@ class AuthController extends Controller
                 // Invalid credentials, redirect back with an error message
                 return redirect()->back()->withErrors(['email' => 'Invalid credentials'])->withInput($request->only('email'));
         }
-    }
+        }
         public function loginapi(Request $request)
         {
             $request->validate([
